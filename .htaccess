@@ -1,0 +1,96 @@
+#SECURITY FOLDER
+<files .htaccess="">
+order allow,deny
+deny from all
+</files>
+
+
+
+RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+#HOME
+RewriteRule ^logout$ /public/client/account/pages/logout.php [L]
+RewriteRule ^auth/login$ /public/client/account/pages/login.php [L]
+RewriteRule ^auth/register$ /public/client/account/pages/signup.php [L]
+RewriteRule ^profile$ /public/client/account/pages/profile.php [L]
+RewriteRule ^search$ /search.php [L]
+
+#BANK
+RewriteRule ^bank$ /public/client/recharge/napbank.php [L]
+
+#GAME 
+RewriteRule ^xien$ /public/client/xien.php [L]
+RewriteRule ^motphanba$ /public/client/motphanba.php [L]
+RewriteRule ^tong3so$ /public/client/tong3so.php [L]
+RewriteRule ^chuyentien$ /public/client/chuyentien.php [L]
+RewriteRule ^ruttien$ /public/client/ruttien.php [L]
+RewriteRule ^chanle$ /public/client/chanle.php [L]
+RewriteRule ^chanle2$ /public/client/chanle2.php [L]
+RewriteRule ^taixiu$ /public/client/taixiu.php [L]
+RewriteRule ^taixiu2$ /public/client/taixiu2.php [L]
+RewriteRule ^giftcode$ /public/client/giftcode.php [L]
+
+#ADMIN
+RewriteRule ^admin/lsBank$ /public/admin/lsNapBank.php [L]
+RewriteRule ^admin/desNapTien$ /public/admin/desnaptien.php [L]
+RewriteRule ^admin/home$ /public/admin/home.php [L]
+RewriteRule ^admin/member$ /public/admin/member.php [L]
+RewriteRule ^admin/PublicMoney$ /public/admin/publicmoney.php [L]
+RewriteRule ^admin/bank$ /public/admin/listBank.php [L]
+RewriteRule ^admin/notification$ /public/admin/notification.php [L]
+RewriteRule ^admin/addNotification$ /public/admin/addNotification.php [L]
+RewriteRule ^admin/setting$ /public/admin/setting.php [L]
+RewriteRule ^admin/chuyentien$ /public/admin/lschuyentien.php [L]
+RewriteRule ^admin/ruttien$ /public/admin/lsruttien.php [L]
+
+#ADMIN GAME
+RewriteRule ^admin/chanle$ /public/admin/chanle.php [L]
+RewriteRule ^admin/chanle2$ /public/admin/chanle2.php [L]
+RewriteRule ^admin/taixiu$ /public/admin/taixiu.php [L]
+RewriteRule ^admin/taixiu2$ /public/admin/taixiu2.php [L]
+RewriteRule ^admin/xien$ /public/admin/xien.php [L]
+RewriteRule ^admin/motphanba$ /public/admin/motphanba.php [L]
+RewriteRule ^admin/tong3so$ /public/admin/tong3so.php [L]
+
+#minigame
+RewriteRule ^admin/giftcode$ /public/admin/giftcode.php [L]
+
+#CRON AUTO BANK WEBSITE
+RewriteRule ^cronjob-mbbank$ /cron/cron/mbbank.php [L]
+RewriteRule ^cronjob-momo$ /cron/cron/momo.php [L]
+RewriteRule ^cronjob-zalopay$ /cron/cron/zalopay.php [L]
+RewriteRule ^cronjob-vcb$ /cron/cron/vcb.php [L]
+RewriteRule ^cronjob-tsr$ /cron/cron/tsr.php [L]
+
+#API FORM WEBITE
+RewriteRule ^api/xien$ /ajax/xien.php [L]
+RewriteRule ^api/chuyentien$ /ajax/chuyentien.php [L]
+RewriteRule ^api/giftcode$ /ajax/giftcode.php [L]
+RewriteRule ^api/ruttien$ /ajax/ruttien.php [L]
+RewriteRule ^api/chanle$ /ajax/chanle.php [L]
+RewriteRule ^api/motphanba$ /ajax/motphanba.php [L]
+RewriteRule ^api/tong3so$ /ajax/tong3so.php [L]
+RewriteRule ^api/chanle2$ /ajax/chanle2.php [L]
+RewriteRule ^api/taixiu$ /ajax/taixiu.php [L]
+RewriteRule ^api/taixiu2$ /ajax/taixiu2.php [L]
+RewriteRule ^api/profile/AuthForm$ /public/client/account/api/AuthForm.php [L]
+RewriteRule ^api/profile/changePassword$ /public/client/account/api/changePassword.php [L]
+
+#API FORM ADMIN
+RewriteRule ^api/admin/giftcode$ /public/admin/api/giftcode.php [L]
+RewriteRule ^api/admin/PublicMoney$ /public/admin/api/publicmoney.php [L]
+RewriteRule ^api/admin/Bank$ /public/admin/api/bank.php [L]
+RewriteRule ^api/admin/setSuport$ /public/admin/api/setSuport.php [L]
+RewriteRule ^api/admin/setting$ /public/admin/api/setting.php [L]
+RewriteRule ^api/admin/noidungnaptien$ /public/admin/api/ndnaptien.php [L]
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php74” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php74 .php .php7 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

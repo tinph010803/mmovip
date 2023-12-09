@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vòng Quay May Mắn</title>
+    <link rel="stylesheet" href="css/typo/typo.css" />
+    <link rel="stylesheet" href="css/hc-canvas-luckwheel.css" />
+    <style>
+      .hc-luckywheel{
+        position:fixed;
+        top: 50%;
+        left: 50%;
+        margin-top: -250px;
+        margin-left: -250px;
+      }
+    </style>
+  </head>
+  <body class="bg">
+    <div class="wrapper typo" id="wrapper">
+      <section id="luckywheel" class="hc-luckywheel">
+        <div class="hc-luckywheel-container">
+          <canvas class="hc-luckywheel-canvas" width="500px" height="500px"
+            >Vòng Xoay May Mắn</canvas
+          >
+        </div>
+        <a class="hc-luckywheel-btn" href="javascript:;">Xoay</a>
+      </section>
+    </div>
+    <th class="text-center text-red bg-info"><span style='font-weight:bold;font-style:italic;font-family:"Courier New";font-size:22px;'><span style='color:#FF0000;'>P</span><span style='color:#FF3300;'>e</span><span style='color:#FF6600;'>m</span> <span style='color:#FFCC00;'>C</span><span style='color:#FFFF00;'>h</span><span style='color:#CBFF00;'>ẵ</span><span style='color:#98FF00;'>n</span> <span style='color:#32FF00;'>L</span><span style='color:#00FF00;'>ẻ</span> <span style='color:#00FF66;'>T</span><span style='color:#00FF99;'>ạ</span><span style='color:#00FFCC;'>i</span><span style='color:#00FEFF;'>:</span> <span style='color:#0098FF;'>C</span><span style='color:#0065FF;'>L</span><span style='color:#0032FF;'>Z</span><span style='color:#0000FF;'>L</span><span style='color:#3200FF;'>P</span><span style='color:#6500FF;'>A</span><span style='color:#9900FF;'>Y</span><span style='color:#CC00FF;'>1</span><span style='color:#FF00FE;'>2</span><span style='color:#FF00CB;'>3</span><span style='color:#FF0098;'>.</span><span style='color:#FF0065;'>M</span><span style='color:#FF0032;'>E</span></span></th>
+</style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="js/hc-canvas-luckwheel.js"></script>
+    <script>
+      var isPercentage = true;
+      var prizes = [
+              {
+                text: "100.000đ",
+                img: "https://gonatour.vn/vnt_upload/news/05_2020/tien_100000_dong_viet_nam.jpg",
+                number: 1, // 1%,
+                percentpage: 0.001 // 1%
+              },
+              {
+                text: "10.000đ",
+                img: "https://gonatour.vn/vnt_upload/news/05_2020/tien_10000_dong_viet_nam.jpg",
+                number: 1,
+                percentpage: 0.007 // 1%
+              },
+              {
+                text: "500.000đ",
+                img: "https://cdn.vietnambiz.vn/2019/5/10/photo-1-15574450951311595704981.jpg",
+                number : 1,
+                percentpage: 0.001 // 1%
+              },
+              {
+                text: "50.000đ",
+                img: "https://dep.anh9.com/imgs/131111hinh-mat-truoc-tien-polyme-viet-nam-50000-dong.jpg",
+                number: 1,
+                percentpage: 0.001 // 3%
+              },
+              {
+                text: "Chúc bạn may mắn lần sau",
+                img: "images/miss.png",
+                percentpage: 0.99 // 90%
+              },
+            ];
+      document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+          hcLuckywheel.init({
+            id: "luckywheel",
+            config: function(callback) {
+              callback &&
+                callback(prizes);
+            },
+            mode : "both",
+            getPrize: function(callback) {
+              var rand = randomIndex(prizes);
+              var chances = rand;
+              callback && callback([rand, chances]);
+            },
+            gotBack: function(data) {
+              if(data == null){
+                Swal.fire(
+                  'Chương trình kết thúc',
+                  'Đã hết phần thưởng',
+                  'error'
+                )
+              } else if (data == 'Chúc bạn may mắn lần sau'){
+                Swal.fire(
+                  'Quay Ngu Vãi Lồn Haha',
+                  data,
+                  'error'
+                )
+              } else{
+                Swal.fire(
+                  'Đã trúng giải',
+                  data,
+                  'success'
+                )
+              }
+            }
+          });
+        },
+        false
+      );
+      function randomIndex(prizes){
+        if(isPercentage){
+          var counter = 1;
+          for (let i = 0; i < prizes.length; i++) {
+            if(prizes[i].number == 0){
+              counter++
+            }
+          }
+          if(counter == prizes.length){
+            return null
+          }
+          let rand = Math.random();
+          let prizeIndex = null;
+          console.log(rand);
+          switch (true) {
+            case rand < prizes[4].percentpage:
+              prizeIndex = 4 ;
+              break;
+            case rand < prizes[4].percentpage + prizes[3].percentpage:
+              prizeIndex = 3;
+              break;
+            case rand < prizes[4].percentpage + prizes[3].percentpage + prizes[2].percentpage:
+              prizeIndex = 2;
+              break;
+            case rand < prizes[4].percentpage + prizes[3].percentpage + prizes[2].percentpage + prizes[1].percentpage:
+              prizeIndex = 1;
+              break;  
+            case rand < prizes[4].percentpage + prizes[3].percentpage + prizes[2].percentpage + prizes[1].percentpage  + prizes[0].percentpage:
+              prizeIndex = 0;
+              break;  
+          }
+          if(prizes[prizeIndex].number != 0){
+            prizes[prizeIndex].number = prizes[prizeIndex].number - 1
+            return prizeIndex
+          }else{
+            return randomIndex(prizes)
+          }
+        }else{
+          var counter = 0;
+          for (let i = 0; i < prizes.length; i++) {
+            if(prizes[i].number == 0){
+              counter++
+            }
+          }
+          if(counter == prizes.length){
+            return null
+          }
+          var rand = (Math.random() * (prizes.length)) >>> 0;
+          if(prizes[rand].number != 0){
+            prizes[rand].number = prizes[rand].number - 1
+            return rand
+          }else{
+            return randomIndex(prizes)
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
